@@ -68,25 +68,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
       Data.down.paintIcon(this, g, snakeX[0], snakeY[0]);
     }
 
-    // Snake
-    // for (int i = 1; i < length; i++) {
-    // Data.body.paintIcon(this, g, snakeX[i], snakeY[i]);
-    // }
-
-    // if (isStart == false) {
-    // g.setColor(Color.white);
-    // g.setFont(new Font("微软雅黑", Font.BOLD, 40));
-    // g.drawString("按下空格开始游戏", 300, 300);
-    // }
-
-    // if (isfalse) {
-    // g.setColor(Color.red);
-    // g.setFont(new Font("微软雅黑", Font.BOLD, 40));
-    // g.drawString("失败，按下空格重新开始 ", 300, 300);
-    // }
-
-    // }
-
     for (int i = 1; i < length; i++) {
       Data.body.paintIcon(this, g, snakeX[i], snakeY[i]);
     }
@@ -155,18 +136,22 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
   @Override // Event listener
   public void actionPerformed(ActionEvent e) {
     if (isStart && !isfalse) {
-
       for (int i = length - 1; i > 0; i--) {
         snakeX[i] = snakeX[i - 1];
         snakeY[i] = snakeY[i - 1];
       }
-      // Eat food
+
       if (snakeX[0] == foodX && snakeY[0] == foodY) {
         length++;
         score += 10;
         foodX = 25 + 25 * random.nextInt(34);
         foodY = 75 + 25 * random.nextInt(24);
-        repaint();
+
+        // Add new body part to snake position arrays
+        for (int i = length - 1; i > 0; i--) {
+          snakeX[i] = snakeX[i - 1];
+          snakeY[i] = snakeY[i - 1];
+        }
       }
 
       if (direction.equals("R")) {
@@ -190,6 +175,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
           snakeY[0] = 75;
         }
       }
+
       for (int i = 1; i < length; i++) {
         if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
           isfalse = true;
@@ -197,7 +183,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
       }
 
       repaint();
-
     }
     timer.start();
   }
