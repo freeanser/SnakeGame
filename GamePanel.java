@@ -43,4 +43,65 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     timer.start();
   }
 
+  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    this.setBackground(Color.white);
+    Data.header.paintIcon(this, g, 25, 11);// Draw the header
+    g.fillRect(25, 75, 850, 600);// Default game interface
+
+    g.setColor(new Color(51, 25, 0)); // Dark brown color
+    g.setFont(new Font("Microsoft YaHei", Font.BOLD, 18));
+    g.drawString("Length:" + length, 750, 35);
+    g.drawString("Score:" + score, 750, 50);
+
+    // Food
+    Data.food.paintIcon(this, g, foodX, foodY);
+
+    if (direction.equals("R")) {
+      Data.right.paintIcon(this, g, snakeX[0], snakeY[0]);
+    } else if (direction.equals("L")) {
+      Data.left.paintIcon(this, g, snakeX[0], snakeY[0]);
+    } else if (direction.equals("U")) {
+      Data.up.paintIcon(this, g, snakeX[0], snakeY[0]);
+    } else if (direction.equals("D")) {
+      Data.down.paintIcon(this, g, snakeX[0], snakeY[0]);
+    }
+
+    // Snake
+    // for (int i = 1; i < length; i++) {
+    // Data.body.paintIcon(this, g, snakeX[i], snakeY[i]);
+    // }
+
+    // if (isStart == false) {
+    // g.setColor(Color.white);
+    // g.setFont(new Font("微软雅黑", Font.BOLD, 40));
+    // g.drawString("按下空格开始游戏", 300, 300);
+    // }
+
+    // if (isfalse) {
+    // g.setColor(Color.red);
+    // g.setFont(new Font("微软雅黑", Font.BOLD, 40));
+    // g.drawString("失败，按下空格重新开始 ", 300, 300);
+    // }
+
+    // }
+
+    for (int i = 1; i < length; i++) {
+      Data.body.paintIcon(this, g, snakeX[i], snakeY[i]);
+    }
+
+    if (!isStart) {
+      g.setColor(Color.white);
+      g.setFont(new Font("Microsoft YaHei", Font.BOLD, 24));
+      g.drawString("Press space to start the game", 300, 300);
+    }
+
+    if (isfalse) {
+      g.setColor(Color.red);
+      g.setFont(new Font("Microsoft YaHei", Font.BOLD, 24));
+      g.drawString("Failure, press space to restart", 300, 300);
+    }
+  }
+
 }
