@@ -104,4 +104,47 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     }
   }
 
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    int keyCode = e.getKeyCode();
+    if (keyCode == KeyEvent.VK_SPACE) {
+      if (isfalse) {
+        isfalse = false;
+        init();
+      } else {
+        isStart = !isStart;
+      }
+      repaint();
+    }
+    if (keyCode == KeyEvent.VK_UP) {
+      if (direction != "D") {
+        direction = "U";
+        repaint();
+      }
+    }
+    if (keyCode == KeyEvent.VK_LEFT) {
+      if (direction != "R") {
+        direction = "L";
+        repaint();
+      }
+    }
+    if (keyCode == KeyEvent.VK_DOWN) {
+      if (direction != "U") {
+        direction = "D";
+        repaint();
+      }
+    }
+    if (keyCode == KeyEvent.VK_RIGHT) {
+      if (direction != "L") {
+        direction = "R";
+        repaint();
+      }
+    }
+  }
+
 }
