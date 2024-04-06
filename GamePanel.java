@@ -147,4 +147,58 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     }
   }
 
+  @Override
+  public void keyReleased(KeyEvent e) {
+
+  }
+
+  @Override // Event listener
+  public void actionPerformed(ActionEvent e) {
+    if (isStart && !isfalse) {
+
+      for (int i = length - 1; i > 0; i--) {
+        snakeX[i] = snakeX[i - 1];
+        snakeY[i] = snakeY[i - 1];
+      }
+      // Eat food
+      if (snakeX[0] == foodX && snakeY[0] == foodY) {
+        length++;
+        score += 10;
+        foodX = 25 + 25 * random.nextInt(34);
+        foodY = 75 + 25 * random.nextInt(24);
+        repaint();
+      }
+
+      if (direction.equals("R")) {
+        snakeX[0] += 25;
+        if (snakeX[0] > 850) {
+          snakeX[0] = 25;
+        }
+      } else if (direction.equals("L")) {
+        snakeX[0] -= 25;
+        if (snakeX[0] < 25) {
+          snakeX[0] = 850;
+        }
+      } else if (direction.equals("U")) {
+        snakeY[0] -= 25;
+        if (snakeY[0] < 75) {
+          snakeY[0] = 650;
+        }
+      } else if (direction.equals("D")) {
+        snakeY[0] += 25;
+        if (snakeY[0] > 650) {
+          snakeY[0] = 75;
+        }
+      }
+      for (int i = 1; i < length; i++) {
+        if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
+          isfalse = true;
+        }
+      }
+
+      repaint();
+
+    }
+    timer.start();
+  }
 }
